@@ -1,6 +1,6 @@
 # DSH Desktop 插件集管理
 
-`dsh-desktop-suite` 是面向 [DSH Desktop](https://github.com/anywhere-labs/dsh-desktop) 的插件，按该仓库的插件规范编写：只使用宿主公开的 `desktopProfiles` 与 `desktopPnpm` 两个 Host service，在 Desktop 自己的 profile 与包管理路径上维护一组固定的 DeepSeek Harness 插件。
+`dsh-desktop-suite` 是基于 [anywhere-labs/dsh-desktop](https://github.com/anywhere-labs/dsh-desktop) 仓库的插件，按该仓库的插件规范编写：只使用宿主公开的 `desktopProfiles` 与 `desktopPnpm` 两个 Host service，在 Desktop 自己的 profile 与包管理路径上维护一组固定的 DeepSeek Harness 插件。
 
 Web 端的对应仓库是 [`dsh-plugin-suite`](https://github.com/hzxwonder-dsh-plugins/dsh-plugin-suite)。Web 端由该仓库的 `bin/manage.mjs` 直接准备 profile 清单并运行 pnpm，桌面端不重复这套动作：它把同一组成员交给 Desktop 的包服务，profile 归属由 `desktopProfiles.current` 决定，清单与 `dsh.profile.bundles` 收敛由打包的 `dsh plugin` CLI 负责。
 
@@ -60,7 +60,7 @@ profile 的 patch 层可以覆盖以下字段：
 npm test
 ```
 
-10 项单元测试覆盖：配置校验、profile 清单读取、动作规划、工具与命令注册、approval 与只读拒绝、非零退出与终止信号与 spawn 失败的区分、并发拒绝、卸载取消与等待，以及结果渲染。桌面实例上的安装与更新路径需要在 DSH Desktop 内实测，验证方式见 [`docs/desktop-contract.md`](docs/desktop-contract.md)。
+11 项单元测试覆盖：配置校验、profile 清单读取、动作规划、工具与命令注册、approval 与只读拒绝、非零退出与终止信号与 spawn 失败的区分、并发拒绝、卸载取消与等待、结果渲染，以及 bundle patch 与 `dsh.bundle.patch` 落点。桌面实例上的安装与更新路径需要在 DSH Desktop 内实测，验证方式见 [`docs/desktop-contract.md`](docs/desktop-contract.md)。
 
 ## 许可证
 

@@ -1,6 +1,6 @@
 # DSH Desktop plugin-set management
 
-`dsh-desktop-suite` is a plugin for [DSH Desktop](https://github.com/anywhere-labs/dsh-desktop), written against that repository's plugin guide: it uses only the public `desktopProfiles` and `desktopPnpm` Host services, and maintains one fixed set of DeepSeek Harness plugins through the desktop shell's own profile and package-manager path.
+`dsh-desktop-suite` is a plugin based on the [anywhere-labs/dsh-desktop](https://github.com/anywhere-labs/dsh-desktop) repository and written against its plugin guide: it uses only the public `desktopProfiles` and `desktopPnpm` Host services, and maintains one fixed set of DeepSeek Harness plugins through the desktop shell's own profile and package-manager path.
 
 Its Web counterpart is [`dsh-plugin-suite`](https://github.com/hzxwonder-dsh-plugins/dsh-plugin-suite). There the `bin/manage.mjs` CLI prepares the profile manifest and runs pnpm directly; the desktop side does not repeat that work. It hands the same member set to the shell's package service, takes the profile from `desktopProfiles.current`, and lets the packaged `dsh plugin` CLI own the manifest and `dsh.profile.bundles` reconciliation.
 
@@ -60,7 +60,7 @@ A profile patch layer can override these fields:
 npm test
 ```
 
-Ten unit tests cover configuration validation, profile inventory reads, action planning, tool and command registration, approval and read-only rejection, the separation of a nonzero exit, a terminating signal and a spawn failure, concurrency rejection, teardown cancellation and waiting, and result rendering. The install and update paths still need a live DSH Desktop run; the procedure is in [`docs/desktop-contract.md`](docs/desktop-contract.md).
+Eleven unit tests cover configuration validation, profile inventory reads, action planning, tool and command registration, approval and read-only rejection, the separation of a nonzero exit, a terminating signal and a spawn failure, concurrency rejection, teardown cancellation and waiting, result rendering, and the bundle patch the package declares. The install and update paths still need a live DSH Desktop run; the procedure is in [`docs/desktop-contract.md`](docs/desktop-contract.md).
 
 ## License
 

@@ -43,5 +43,8 @@
     "dsh-plugin-desktop": {
       "optional": true
     }
+  },
+  "devDependencies": {
+    "js-yaml": "4.2.0"
   }
 }

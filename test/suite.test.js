@@ -1,9 +1,10 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtemp, mkdir, rm, writeFile} from 'node:fs/promises';
+import {mkdtemp, mkdir, readFile, rm, writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {Readable} from 'node:stream';
+import yaml from 'js-yaml';
 import {apply, DESKTOP_SUITE_USAGE, formatSuiteResult} from '../index.js';
 import {actionArgv, defaultSpec, DEFAULT_MEMBERS, profileInventory, validateConfig} from '../lib/inventory.js';
 import {DesktopPackageOperations} from '../lib/operation.js';
@@ -268,4 +269,10 @@ test('the tool result renders a short summary beside the JSON payload', () => {
   assert.match(text, /dsh-plugin-browser: not declared/);
   assert.match(text, /dsh-plugin-terminal: link:\/terminal → 0\.5\.0 · bundle/);
   assert.match(text, /install: exit=0 signal=null ok=true/);
+});
+
+test('the bundle patch inserts exactly this plugin row', async () => {
+  const patch = yaml.load(await readFile(new URL('../cordis.patch.yml', import.meta.url), 'utf8'));
+  assert.deepEqual(patch, [{insert: [{id: 'dsh-desktop-suite', name: 'dsh-desktop-suite'}]}]);
+  assert.deepEqual(JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8')).dsh.bundle.patch, './cordis.patch.yml');
 });
